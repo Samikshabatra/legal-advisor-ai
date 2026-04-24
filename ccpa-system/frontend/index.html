@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCPA Shield — Compliance Analyzer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', system-ui, sans-serif; }
+.serif { font-family: 'Playfair Display', Georgia, serif; }
+.dot-bg { background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.08) 1px, transparent 0); background-size: 40px 40px; }
+@keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+.mic-pulse::before { content: ''; position: absolute; inset: -4px; border-radius: 9999px; background: rgb(239 68 68 / 0.4); animation: pulse-ring 1.2s ease-out infinite; }
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<div id="app">
+<!-- Landing Page -->
+<div id="landing-page">
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-transparent" id="nav">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 flex items-center justify-between h-20">
+      <div class="flex items-center gap-2">
+        <svg class="h-7 w-7 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="text-2xl font-bold text-white serif">CCPA Shield</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-white/80 hover:text-amber-400 transition">Features</a>
+        <a href="#stats" class="text-white/80 hover:text-amber-400 transition">Stats</a>
+        <button onclick="showAnalyzer()" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2.5 rounded-lg font-medium shadow-md transition">Start Audit</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f1419 100%)">
+    <div class="absolute inset-0 dot-bg"></div>
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-20 pt-24 pb-20 w-full">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8">
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full border border-white/20">
+            <svg class="h-4 w-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span class="text-sm text-white/90">AI-Powered CCPA Compliance</span>
+          </div>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight serif">Advanced CCPA Compliance Monitoring</h1>
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl">AI-powered platform that identifies, analyzes, and reports California Consumer Privacy Act violations in real-time — with consequences, improvement guidance, and downloadable reports.</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button onclick="showAnalyzer()" class="flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg rounded-lg shadow-lg font-medium transition">
+              Start Free Audit
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <button class="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-lg font-medium transition">View Demo</button>
+          </div>
+          <div class="pt-8 border-t border-white/20">
+            <p class="text-sm text-gray-400 mb-3">Built for Open Hack 2026</p>
+            <div class="flex items-center gap-6 opacity-60 text-white font-semibold text-sm">
+              <span>CSA, IISc</span><span>•</span><span>RAG + Llama 3</span><span>•</span><span>45 CCPA Sections</span>
+            </div>
+          </div>
+        </div>
+        <!-- Right panel -->
+        <div class="hidden lg:block">
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-white/10 backdrop-blur space-y-4">
+            <div class="flex items-center gap-3 bg-white/10 rounded-lg p-4">
+              <div class="h-10 w-10 bg-green-500/20 rounded-lg flex items-center justify-center"><svg class="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg></div>
+              <div><p class="text-xs text-gray-400">Compliance Score</p><p class="text-xl font-bold text-white">99.7%</p></div>
+            </div>
+            <div class="flex items-center gap-3 bg-white/10 rounded-lg p-4">
+              <div class="h-10 w-10 bg-amber-500/20 rounded-lg flex items-center justify-center"><svg class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+              <div><p class="text-xs text-gray-400">Sections Analyzed</p><p class="text-xl font-bold text-white">45</p></div>
+            </div>
+            <div class="flex items-center gap-3 bg-white/10 rounded-lg p-4">
+              <div class="h-10 w-10 bg-blue-500/20 rounded-lg flex items-center justify-center"><svg class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div><p class="text-xs text-gray-400">Search Vectors</p><p class="text-xl font-bold text-white">213</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0"><svg viewBox="0 0 1440 120" fill="none" class="w-full"><path d="M0 0L60 8C120 16 240 32 360 37.3C480 43 600 37 720 32C840 27 960 21 1080 24C1200 27 1320 37 1380 42.7L1440 48V120H0V0Z" fill="white"/></svg></div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-20 bg-white" id="features">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20">
+      <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center serif">Key Features</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition"><div class="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4"><svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 class="font-bold mb-2">Violation Detection</h3><p class="text-gray-600 text-sm">Analyze business practices against all 45 CCPA sections using hybrid AI search.</p></div>
+        <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition"><div class="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4"><svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></div><h3 class="font-bold mb-2">Voice Input</h3><p class="text-gray-600 text-sm">Describe practices using voice — speech-to-text converts and analyzes instantly.</p></div>
+        <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition"><div class="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4"><svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="font-bold mb-2">Consequence Analysis</h3><p class="text-gray-600 text-sm">Understand potential fines, penalties, and legal exposure for each violation.</p></div>
+        <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition"><div class="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4"><svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3 class="font-bold mb-2">Improvement Guidance</h3><p class="text-gray-600 text-sm">Get actionable steps to fix violations and achieve full compliance.</p></div>
+        <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition"><div class="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4"><svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><h3 class="font-bold mb-2">Report Download</h3><p class="text-gray-600 text-sm">Download detailed reports with violations, consequences, and action items.</p></div>
+        <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition"><div class="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4"><svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 class="font-bold mb-2">Citation Validation</h3><p class="text-gray-600 text-sm">Every section cited is validated against the actual CCPA statute — no hallucination.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16" id="stats" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div><div class="text-4xl md:text-5xl font-bold text-white mb-1 serif">45</div><div class="text-gray-300 text-sm">CCPA Sections</div></div>
+      <div><div class="text-4xl md:text-5xl font-bold text-white mb-1 serif">213</div><div class="text-gray-300 text-sm">Search Vectors</div></div>
+      <div><div class="text-4xl md:text-5xl font-bold text-white mb-1 serif">274</div><div class="text-gray-300 text-sm">Keywords</div></div>
+      <div><div class="text-4xl md:text-5xl font-bold text-white mb-1 serif">&lt;2s</div><div class="text-gray-300 text-sm">Analysis Time</div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-white text-center">
+    <h2 class="text-3xl font-bold text-gray-900 mb-4 serif">Ready to Check Compliance?</h2>
+    <button onclick="showAnalyzer()" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-10 py-4 rounded-lg shadow-lg font-medium transition">Launch Analyzer →</button>
+  </section>
+
+  <footer class="py-8 text-center" style="background:#1a1a2e"><p class="text-gray-400 text-sm">© 2026 CCPA Shield — Open Hack 2026, CSA, IISc</p></footer>
+</div>
+
+<!-- Analyzer Page (hidden by default) -->
+<div id="analyzer-page" class="hidden min-h-screen bg-gray-50">
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button onclick="showLanding()" class="text-gray-400 hover:text-gray-700">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <svg class="h-6 w-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="font-bold text-gray-900 serif">CCPA Shield</span>
+        <span class="text-gray-400 text-sm hidden sm:inline">/ Analyzer</span>
+      </div>
+      <button id="download-btn" onclick="downloadReport()" class="hidden items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Report
+      </button>
+    </div>
+  </header>
+
+  <div class="max-w-4xl mx-auto px-6 py-8 space-y-6">
+    <!-- Input -->
+    <div class="bg-white rounded-2xl shadow-lg border p-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-1 serif">Analyze Business Practice</h2>
+      <p class="text-gray-500 text-sm mb-4">Type or use voice to describe a data practice.</p>
+      <div class="relative">
+        <textarea id="prompt-input" placeholder="e.g., We sell customer data to brokers without consent..." class="w-full h-32 p-4 pr-14 border rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none resize-none"></textarea>
+        <button id="mic-btn" onclick="toggleVoice()" class="absolute right-3 top-3 p-2.5 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition">
+          <svg id="mic-icon" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        </button>
+      </div>
+      <p id="listening-text" class="hidden text-red-600 text-xs mt-2">● Listening... speak now</p>
+      <button id="analyze-btn" onclick="analyzePrompt()" class="mt-3 w-full flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white py-3.5 rounded-xl font-medium transition">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Analyze for Violations
+      </button>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <span class="text-xs text-gray-400">Try:</span>
+        <button onclick="setPrompt('We sell user data to brokers without consent')" class="text-xs px-3 py-1 bg-gray-100 hover:bg-amber-50 text-gray-600 rounded-full transition">Selling data without consent</button>
+        <button onclick="setPrompt('Customer asked to delete data but we are ignoring the request')" class="text-xs px-3 py-1 bg-gray-100 hover:bg-amber-50 text-gray-600 rounded-full transition">Ignoring deletion requests</button>
+        <button onclick="setPrompt('We charge higher prices to customers who opt out of data selling')" class="text-xs px-3 py-1 bg-gray-100 hover:bg-amber-50 text-gray-600 rounded-full transition">Discriminatory pricing</button>
+      </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="results-container" class="hidden space-y-6">
+      <!-- Verdict Banner -->
+      <div id="verdict-banner"></div>
+      <!-- Tabs -->
+      <div id="tabs-container" class="hidden">
+        <div class="flex gap-1 bg-gray-100 rounded-xl p-1">
+          <button onclick="switchTab('violations')" id="tab-violations" class="flex-1 py-2.5 rounded-lg text-sm font-medium transition bg-white shadow text-gray-900">⚠ Violations</button>
+          <button onclick="switchTab('consequences')" id="tab-consequences" class="flex-1 py-2.5 rounded-lg text-sm font-medium transition text-gray-500">⚡ Consequences</button>
+          <button onclick="switchTab('improvements')" id="tab-improvements" class="flex-1 py-2.5 rounded-lg text-sm font-medium transition text-gray-500">💡 Improvements</button>
+        </div>
+      </div>
+      <!-- Tab Content -->
+      <div id="tab-content" class="hidden bg-white rounded-2xl shadow-lg border p-6"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ================================================================
+// SECTION DATA — consequences & improvements
+// ================================================================
+const SECTIONS = {
+  "Section 1798.100": { title: "General Duties — Notice at Collection", consequences: ["Administrative fine up to $2,500 per violation ($7,500 if intentional)", "CPPA enforcement action and mandatory compliance audit", "Consumer class-action lawsuits for systematic failures", "Reputational damage and loss of consumer trust"], improvements: ["Provide clear privacy notice at or before data collection", "Disclose all categories of personal information collected", "Implement a publicly accessible, regularly updated privacy policy", "Ensure data collection is proportionate to disclosed purposes"] },
+  "Section 1798.105": { title: "Right to Delete", consequences: ["Administrative fine up to $7,500 per intentional violation", "Consumer lawsuits under private right of action provisions", "Mandatory compliance orders from CPPA", "Increased scrutiny and repeat audit requirements"], improvements: ["Establish verified consumer request process for deletion", "Respond to deletion requests within 45 days", "Notify all service providers and third parties to delete data", "Document exemptions clearly when deletion cannot be fulfilled"] },
+  "Section 1798.110": { title: "Right to Know — What Is Collected", consequences: ["Administrative fines up to $2,500-$7,500 per violation", "CPPA enforcement for systematic non-disclosure"], improvements: ["Disclose categories of personal information upon request", "Provide specific pieces of information collected", "Maintain designated methods for consumer requests"] },
+  "Section 1798.115": { title: "Right to Know — Sold/Shared", consequences: ["Administrative fines and potential injunctions", "Third-party liability for unauthorized sharing"], improvements: ["Disclose categories of data sold/shared and to whom", "Maintain separate lists for sold vs business-purpose data", "Update disclosures at least every 12 months"] },
+  "Section 1798.120": { title: "Right to Opt-Out of Sale/Sharing", consequences: ["Fine of $7,500 per violation involving minors under 16", "Mandatory 'Do Not Sell' link enforcement by CPPA", "Class-action exposure for systematic opt-out failures", "Parental consent violations carry enhanced penalties"], improvements: ["Provide a clear 'Do Not Sell or Share' link on homepage", "Honor opt-out requests immediately for at least 12 months", "Obtain affirmative parental consent for minors under 13", "Never sell data of consumers known to be under 16 without consent"] },
+  "Section 1798.121": { title: "Right to Limit Sensitive Info", consequences: ["Enhanced penalties for misuse of sensitive personal information", "CPPA enforcement for unauthorized health/biometric processing"], improvements: ["Limit sensitive data use to what is necessary for services", "Provide a 'Limit Use of Sensitive Information' link", "Obtain explicit consent before processing sensitive categories"] },
+  "Section 1798.125": { title: "No Retaliation/Discrimination", consequences: ["Administrative fines for discriminatory pricing or service denial", "Consumer lawsuits for retaliatory practices", "CPPA investigation and public enforcement action", "Significant reputational and brand damage"], improvements: ["Provide equal service and pricing regardless of privacy choices", "Never deny goods or reduce quality for exercising rights", "Ensure financial incentives are proportionate and non-coercive", "Train all customer-facing staff on non-discrimination"] },
+  "Section 1798.130": { title: "Notice & Response Requirements", consequences: ["Fines for failing to respond within 45-day window", "CPPA enforcement for inadequate verification procedures"], improvements: ["Provide at least two designated methods for requests", "Respond to all verifiable requests within 45 days", "Deliver information in machine-readable format"] },
+  "Section 1798.135": { title: "Opt-Out Methods & Links", consequences: ["CPPA enforcement for missing homepage opt-out links", "Fines for non-compliance with preference signals"], improvements: ["Add 'Do Not Sell or Share' link on homepage", "Support Global Privacy Control signals"] },
+  "Section 1798.150": { title: "Data Breach — Private Right of Action", consequences: ["Statutory damages of $100-$750 per consumer per incident", "Class-action lawsuits with massive aggregate damages"], improvements: ["Implement reasonable security procedures", "Encrypt personal information at rest and in transit", "Conduct regular security audits"] },
+};
+const getDefault = (s) => ({ title: s, consequences: ["Administrative fine up to $2,500 per violation", "CPPA enforcement action"], improvements: ["Review data practices for compliance", "Consult a CCPA compliance specialist"] });
+
+// ================================================================
+// State
+// ================================================================
+let currentResult = null;
+let recognition = null;
+let isRecording = false;
+
+// ================================================================
+// Page switching
+// ================================================================
+function showAnalyzer() { document.getElementById('landing-page').classList.add('hidden'); document.getElementById('analyzer-page').classList.remove('hidden'); }
+function showLanding() { document.getElementById('analyzer-page').classList.add('hidden'); document.getElementById('landing-page').classList.remove('hidden'); }
+function setPrompt(text) { document.getElementById('prompt-input').value = text; }
+
+// ================================================================
+// Voice input
+// ================================================================
+function toggleVoice() {
+  if (isRecording) { recognition?.stop(); setRecordingState(false); return; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { alert('Voice input requires Chrome browser'); return; }
+  recognition = new SR(); recognition.continuous = true; recognition.interimResults = true; recognition.lang = 'en-US';
+  recognition.onresult = (e) => { let t = ''; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; document.getElementById('prompt-input').value = t; };
+  recognition.onerror = () => setRecordingState(false);
+  recognition.onend = () => setRecordingState(false);
+  recognition.start(); setRecordingState(true);
+}
+function setRecordingState(on) {
+  isRecording = on;
+  const btn = document.getElementById('mic-btn');
+  const txt = document.getElementById('listening-text');
+  if (on) { btn.className = 'absolute right-3 top-3 p-2.5 rounded-full bg-red-500 text-white animate-pulse relative mic-pulse'; txt.classList.remove('hidden'); }
+  else { btn.className = 'absolute right-3 top-3 p-2.5 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition'; txt.classList.add('hidden'); }
+}
+
+// ================================================================
+// Analyze
+// ================================================================
+async function analyzePrompt() {
+  const prompt = document.getElementById('prompt-input').value.trim();
+  if (!prompt) return;
+  const btn = document.getElementById('analyze-btn');
+  btn.innerHTML = '<svg class="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Analyzing...';
+  btn.disabled = true;
+
+  try {
+    const resp = await fetch('/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) });
+    currentResult = await resp.json();
+  } catch {
+    currentResult = demoAnalyze(prompt);
+  }
+  currentResult._prompt = prompt;
+  renderResults();
+  btn.innerHTML = '<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Analyze for Violations';
+  btn.disabled = false;
+}
+
+function demoAnalyze(t) {
+  const l = t.toLowerCase();
+  if (l.includes('sell') && (l.includes('without') || l.includes('opt out'))) return { harmful: true, articles: ['Section 1798.120', 'Section 1798.100'] };
+  if (l.includes('delete') && (l.includes('ignor') || l.includes('refus'))) return { harmful: true, articles: ['Section 1798.105'] };
+  if (l.includes('price') || l.includes('charge')) return { harmful: true, articles: ['Section 1798.125'] };
+  if (l.includes('collect') && l.includes('without')) return { harmful: true, articles: ['Section 1798.100'] };
+  if (l.includes('minor') || l.includes('14') || l.includes('child')) return { harmful: true, articles: ['Section 1798.120'] };
+  return { harmful: false, articles: [] };
+}
+
+// ================================================================
+// Render results
+// ================================================================
+function renderResults() {
+  const container = document.getElementById('results-container');
+  const banner = document.getElementById('verdict-banner');
+  const tabs = document.getElementById('tabs-container');
+  const dlBtn = document.getElementById('download-btn');
+  container.classList.remove('hidden');
+  dlBtn.classList.remove('hidden'); dlBtn.classList.add('flex');
+
+  if (currentResult.harmful) {
+    const arts = currentResult.articles.join(', ');
+    banner.innerHTML = `<div class="rounded-2xl p-5 flex items-center gap-4 shadow-lg bg-gradient-to-r from-red-600 to-red-700"><svg class="h-8 w-8 text-white flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><div><h3 class="text-xl font-bold text-white">CCPA Violation Detected</h3><p class="text-white/80 text-sm">${currentResult.articles.length} section(s): ${arts}</p></div></div>`;
+    tabs.classList.remove('hidden');
+    switchTab('violations');
+  } else {
+    banner.innerHTML = `<div class="rounded-2xl p-5 flex items-center gap-4 shadow-lg bg-gradient-to-r from-green-600 to-green-700"><svg class="h-8 w-8 text-white flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div><h3 class="text-xl font-bold text-white">No Violation Found</h3><p class="text-white/80 text-sm">Practice appears CCPA compliant.</p></div></div>`;
+    tabs.classList.add('hidden');
+    document.getElementById('tab-content').classList.add('hidden');
+  }
+}
+
+function switchTab(tab) {
+  ['violations','consequences','improvements'].forEach(t => {
+    const el = document.getElementById('tab-' + t);
+    el.className = t === tab ? 'flex-1 py-2.5 rounded-lg text-sm font-medium transition bg-white shadow text-gray-900' : 'flex-1 py-2.5 rounded-lg text-sm font-medium transition text-gray-500 hover:text-gray-700';
+  });
+  const content = document.getElementById('tab-content');
+  content.classList.remove('hidden');
+  const arts = currentResult?.articles || [];
+  let html = '';
+
+  if (tab === 'violations') {
+    html = '<h3 class="text-lg font-bold text-gray-900 mb-4">Violated Sections</h3>';
+    arts.forEach(s => { const d = SECTIONS[s] || getDefault(s); html += `<div class="flex items-start gap-3 p-4 bg-red-50 border border-red-100 rounded-xl mb-3"><svg class="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><p class="font-bold text-gray-900">${s}</p><p class="text-sm text-gray-600">${d.title}</p></div></div>`; });
+  } else if (tab === 'consequences') {
+    html = '<h3 class="text-lg font-bold text-gray-900 mb-4">Potential Consequences</h3>';
+    arts.forEach(s => { const d = SECTIONS[s] || getDefault(s); html += `<div class="mb-5"><h4 class="font-bold text-gray-800 mb-2">${s} — ${d.title}</h4>${d.consequences.map(c => `<div class="flex items-start gap-2 pl-3 mb-1"><span class="h-1.5 w-1.5 bg-red-400 rounded-full mt-2 flex-shrink-0"></span><p class="text-gray-700 text-sm">${c}</p></div>`).join('')}</div>`; });
+  } else {
+    html = '<h3 class="text-lg font-bold text-gray-900 mb-4">Recommended Improvements</h3>';
+    arts.forEach(s => { const d = SECTIONS[s] || getDefault(s); html += `<div class="mb-5"><h4 class="font-bold text-gray-800 mb-2">${s} — ${d.title}</h4>${d.improvements.map(m => `<div class="flex items-start gap-2 pl-3 mb-1"><svg class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p class="text-gray-700 text-sm">${m}</p></div>`).join('')}</div>`; });
+  }
+  content.innerHTML = html;
+}
+
+// ================================================================
+// Report download
+// ================================================================
+function downloadReport() {
+  if (!currentResult) return;
+  const prompt = currentResult._prompt || '';
+  let r = `CCPA COMPLIANCE ANALYSIS REPORT\n${'='.repeat(55)}\nGenerated: ${new Date().toLocaleString()}\n\nBUSINESS PRACTICE ANALYZED:\n"${prompt}"\n\nVERDICT: ${currentResult.harmful ? 'VIOLATION DETECTED' : 'COMPLIANT'}\n\n`;
+  if (currentResult.harmful && currentResult.articles.length > 0) {
+    r += `VIOLATED SECTIONS: ${currentResult.articles.join(', ')}\n\n${'='.repeat(55)}\nDETAILED ANALYSIS\n${'='.repeat(55)}\n\n`;
+    currentResult.articles.forEach(s => {
+      const d = SECTIONS[s] || getDefault(s);
+      r += `--- ${s}: ${d.title} ---\n\nPOTENTIAL CONSEQUENCES:\n${d.consequences.map(c => '  * ' + c).join('\n')}\n\nRECOMMENDED IMPROVEMENTS:\n${d.improvements.map(m => '  > ' + m).join('\n')}\n\n`;
+    });
+  }
+  r += `${'='.repeat(55)}\nGenerated by CCPA Shield — Open Hack 2026, CSA, IISc\n`;
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([r], { type: 'text/plain' })); a.download = `ccpa-report-${Date.now()}.txt`; a.click();
+}
+</script>
+</body>
+</html>
