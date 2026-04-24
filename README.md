@@ -19,7 +19,7 @@ AI-powered CCPA violation detection system with hybrid RAG retrieval, consequenc
 ## Docker Run Command
 
 ```bash
-docker run --gpus all -p 8000:8000 -e HF_TOKEN=<your_token> yourusername/ccpa-compliance:latest
+docker run --gpus all -p 8000:8000 -e HF_TOKEN= yourusername/ccpa-compliance:latest
 ```
 
 ## Environment Variables
@@ -77,30 +77,29 @@ curl -X POST http://localhost:8000/analyze \
 ```
 
 ## Project Structure
-
 ```
 ccpa-system/
-├── app/
-│   ├── __init__.py
-│   ├── main.py          # FastAPI server + CORS + frontend serving
-│   ├── analyzer.py      # RAG pipeline: retrieve → LLM → parse → validate
-│   ├── model.py         # HF Inference API client for Llama 3
-│   └── retriever.py     # Hybrid CCPA section retriever (FAISS + keywords)
-├── data/
-│   ├── ccpa_statute.pdf
-│   ├── ccpa_full_sections.json   # 45 full section records
-│   ├── ccpa_sub_chunks.json      # 213 sub-chunks
-│   └── valid_sections.json       # Hallucination guard
-├── frontend/
-│   └── index.html       # Self-contained UI (landing + analyzer)
-├── scripts/
-│   ├── build_database.py
-│   ├── test_parsing.py
-│   ├── rebuild_cosine_index.py
-│   └── diagnose.py
-├── Dockerfile
-├── requirements.txt
-└── README.md
+|-- app/
+|   |-- __init__.py
+|   |-- main.py          # FastAPI server + CORS + frontend serving
+|   |-- analyzer.py      # RAG pipeline: retrieve -> LLM -> parse -> validate
+|   |-- model.py         # HF Inference API client for Llama 3
+|   `-- retriever.py     # Hybrid CCPA section retriever (FAISS + keywords)
+|-- data/
+|   |-- ccpa_statute.pdf
+|   |-- ccpa_full_sections.json   # 45 full section records
+|   |-- ccpa_sub_chunks.json      # 213 sub-chunks
+|   `-- valid_sections.json       # Hallucination guard
+|-- frontend/
+|   `-- index.html       # Self-contained UI (landing + analyzer)
+|-- scripts/
+|   |-- build_database.py
+|   |-- test_parsing.py
+|   |-- rebuild_cosine_index.py
+|   `-- diagnose.py
+|-- Dockerfile
+|-- requirements.txt
+`-- README.md
 ```
 
 ## Frontend Features
